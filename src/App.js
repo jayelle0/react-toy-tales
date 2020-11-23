@@ -9,7 +9,8 @@ import ToyContainer from './components/ToyContainer'
 class App extends React.Component{
 
   state = {
-    display: false
+    display: false,
+    newToy: {}
   }
 
   handleClick = () => {
@@ -19,20 +20,27 @@ class App extends React.Component{
     })
   }
 
+  formSubmitHandler = (newToyObj) => {
+    // console.log(newToyObj)
+    this.setState({newToy: newToyObj})
+    // debugger
+  }
+  
   render(){
+    // console.log(this.state.newToy)
     return (
       <>
         <Header/>
         { this.state.display
             ?
-          <ToyForm/>
+            <ToyForm submitHandler={this.formSubmitHandler}/>
             :
-          null
-        }
+            null
+          }
         <div className="buttonContainer">
           <button onClick={this.handleClick}> Add a Toy </button>
         </div>
-        <ToyContainer/>
+        <ToyContainer newToy = {this.state.newToy}/>
       </>
     );
   }
